@@ -24,7 +24,7 @@ public class KontRoller {
     }
 
     @GetMapping
-    public Collection<Message> all() {
+    public Collection<Message> all() throws IOException {
         return this.messageService.getAll();
     }
 
