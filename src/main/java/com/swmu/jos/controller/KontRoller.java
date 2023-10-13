@@ -5,6 +5,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 import com.swmu.jos.model.Message;
 import com.swmu.jos.service.MessageService;
 import java.util.Collection;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
+@CrossOrigin()
 public class KontRoller {
 
     private final MessageService messageService;
