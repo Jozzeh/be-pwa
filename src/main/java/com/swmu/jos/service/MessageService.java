@@ -31,48 +31,6 @@ public class MessageService {
     private final List<Message> messages = new ArrayList<>();
 
     public Collection<Message> getAll() throws IOException {
-        FileInputStream serviceAccount = new FileInputStream("src/main/resources/service-account.json");
-
-        // Initialize the app with a service account, granting admin privileges
-        FirebaseOptions options = FirebaseOptions.builder()
-                .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                // The database URL depends on the location of the database
-                .setDatabaseUrl("https://joss-d2476-default-rtdb.europe-west1.firebasedatabase.app/")
-                .build();
-        FirebaseApp.initializeApp(options);
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-        final DatabaseReference dinosaursRef = database.getReference("messages");
-        Query query = dinosaursRef.limitToLast(123456789);
-        query.orderByKey().
-        dinosaursRef.orderByKey().addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-                Message message =  dataSnapshot.getValue(Message.class);
-                messages.add(message);
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        System.out.println(messages.get(0));
         return messages.stream().toList();
     }
 

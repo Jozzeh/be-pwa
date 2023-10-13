@@ -17,10 +17,6 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.boot</groupId>-->
-<!--			<artifactId>spring-boot-starter-data-jpa</artifactId>-->
-<!--		</dependency>-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -47,11 +43,6 @@
 			<artifactId>firebase-admin</artifactId>
 			<version>9.2.0</version>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>com.google.firebase</groupId>-->
-<!--			<artifactId>firebase-messaging</artifactId>-->
-<!--			<version>23.2.1</version>-->
-<!--		</dependency>-->
 	</dependencies>
 
 	<build>

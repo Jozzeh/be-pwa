@@ -20,7 +20,8 @@ import org.springframework.context.annotation.DependsOn;
 public class FirebeisConfiguration {
 
     @Bean
-    FirebaseMessaging firebaseMessaging(FirebaseApp firebaseApp) {
+    @DependsOn(value = {"firebaseApp"})
+    public FirebaseMessaging firebaseMessaging(FirebaseApp firebaseApp) {
         return FirebaseMessaging.getInstance(firebaseApp);
     }
 
