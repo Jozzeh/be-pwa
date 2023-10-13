@@ -8,6 +8,8 @@ import com.swmu.jos.service.MessageService;
 import com.swmu.jos.service.PushNotificationService;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.concurrent.ExecutionException;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,13 +32,13 @@ public class KontRoller {
     }
 
     @GetMapping
-    public Collection<Message> all() throws IOException {
+    public Collection<Message> all() throws IOException, ExecutionException, InterruptedException {
         return this.messageService.getAll();
     }
 
     @PostMapping
     @ResponseStatus(CREATED)
-    public void save(@RequestBody final Message message) throws IOException {
+    public void save(@RequestBody final Message message) throws IOException, ExecutionException, InterruptedException {
 
         final var notification = new PushNotificationRequest();
         notification.setMessage(message.getMessage());
