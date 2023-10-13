@@ -1,6 +1,5 @@
 package com.swmu.jos.model;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -10,13 +9,15 @@ public class Message {
     private final long timestamp;
     private final String message;
     private final String username;
+    private final String token;
 
     public Message(final UUID id, final long timestamp, final String message,
-        final String username) {
+        final String username, final String token) {
         this.id = id;
         this.timestamp = timestamp;
         this.message = message;
         this.username = username;
+        this.token = token;
     }
 
     public UUID getId() {
@@ -33,6 +34,10 @@ public class Message {
 
     public String getUsername() {
         return username;
+    }
+
+    public String getToken() {
+        return token;
     }
 
     @Override
