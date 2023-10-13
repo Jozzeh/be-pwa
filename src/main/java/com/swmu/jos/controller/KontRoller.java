@@ -4,6 +4,8 @@ import static org.springframework.http.HttpStatus.CREATED;
 
 import com.swmu.jos.model.Message;
 import com.swmu.jos.service.MessageService;
+
+import java.io.IOException;
 import java.util.Collection;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,7 +30,7 @@ public class KontRoller {
 
     @PostMapping
     @ResponseStatus(CREATED)
-    public void save(@RequestBody final Message message) {
+    public void save(@RequestBody final Message message) throws IOException {
         this.messageService.save(message);
     }
 }
