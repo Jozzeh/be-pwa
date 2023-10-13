@@ -5,11 +5,11 @@ FROM openjdk:22-ea-17-slim
 VOLUME /tmp
 
 # Copy the jar file from the target directory to the image
-COPY jos-0.0.1-SNAPSHOT.jar jos-0.0.1-SNAPSHOT.jar
+COPY jos-0.0.2-SNAPSHOT.jar jos-0.0.2-SNAPSHOT.jar
 
 
 # Expose the port
 EXPOSE 8080
 
 # Define the entrypoint to run the jar file
-ENTRYPOINT ["java","-jar","/jos-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java","-jar","/jos-0.0.2-SNAPSHOT.jar"]
