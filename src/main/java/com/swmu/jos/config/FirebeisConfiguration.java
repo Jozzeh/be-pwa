@@ -10,12 +10,19 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.io.FileInputStream;
 import java.io.IOException;
+
+import com.google.firebase.messaging.FirebaseMessaging;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
 @Configuration
 public class FirebeisConfiguration {
+
+    @Bean
+    FirebaseMessaging firebaseMessaging(FirebaseApp firebaseApp) {
+        return FirebaseMessaging.getInstance(firebaseApp);
+    }
 
     @Bean
     public FirebaseApp firebaseApp() throws IOException {

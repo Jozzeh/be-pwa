@@ -8,6 +8,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.swmu.jos.model.Message;
 
@@ -42,6 +43,8 @@ public class MessageService {
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
         final DatabaseReference dinosaursRef = database.getReference("messages");
+        Query query = dinosaursRef.limitToLast(123456789);
+        query.orderByKey().
         dinosaursRef.orderByKey().addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
@@ -69,6 +72,7 @@ public class MessageService {
 
             }
         });
+        System.out.println(messages.get(0));
         return messages.stream().toList();
     }
 
