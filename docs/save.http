@@ -1,0 +1,12 @@
+### Send POST request with json body
+POST http://localhost:8080/
+Content-Type: application/json
+
+
+
+{
+  "id": "ab2e2132-69a1-11ee-8c99-0242ac120002",
+  "timestamp": "1697185384688",
+  "message": "Ik wil dit opslaan.",
+  "username": "Boma worst"
+}
