@@ -46,7 +46,7 @@ public class KontRoller {
         notification.setTopic("jos");
         notification.setToken(message.getToken());
 
-        this.pushNotificationService.sendPushNotification(notification);
+        this.pushNotificationService.sendPushNotificationWithoutData(notification);
 
         this.messageService.save(message);
     }

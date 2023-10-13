@@ -5,11 +5,14 @@ import java.util.UUID;
 
 public class Message {
 
-    private final UUID id;
-    private final long timestamp;
-    private final String message;
-    private final String username;
-    private final String token;
+    private UUID id;
+    private long timestamp;
+    private String message;
+    private String username;
+    private String token;
+
+    public Message() {
+    }
 
     public Message(final UUID id, final long timestamp, final String message,
         final String username, final String token) {
@@ -38,6 +41,26 @@ public class Message {
 
     public String getToken() {
         return token;
+    }
+
+    public void setId(final UUID id) {
+        this.id = id;
+    }
+
+    public void setTimestamp(final long timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public void setMessage(final String message) {
+        this.message = message;
+    }
+
+    public void setUsername(final String username) {
+        this.username = username;
+    }
+
+    public void setToken(final String token) {
+        this.token = token;
     }
 
     @Override

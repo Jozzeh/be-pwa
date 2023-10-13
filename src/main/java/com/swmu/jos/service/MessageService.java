@@ -5,57 +5,45 @@ import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.WriteResult;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.cloud.FirestoreClient;
 import com.swmu.jos.model.Message;
-
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
-
 import org.springframework.stereotype.Service;
 
 @Service
 public class MessageService {
 
-    private final FirebaseApp app;
-
-
-    public MessageService(final FirebaseApp app) {
-        this.app = app;
-    }
-
-    public Collection<Message> getAll() throws IOException, ExecutionException, InterruptedException {
+    public Collection<Message> getAll()
+        throws IOException, ExecutionException, InterruptedException {
         Firestore db = FirestoreClient.getFirestore();
-
-        // asynchronously retrieve all users
         ApiFuture<QuerySnapshot> query = db.collection("messages").get();
-// ...
-// query.get() blocks on response
         QuerySnapshot querySnapshot = query.get();
-        return querySnapshot.getDocuments().stream().map(document -> new Message(UUID.randomUUID(), Long.parseLong(document.getString("timestamp")), document.getString("message"), document.getString("username"), null)).toList();
-
+        List<QueryDocumentSnapshot> docs = querySnapshot.getDocuments();
+        return docs
+            .stream()
+            .map(documentSnapshot -> documentSnapshot.toObject(Message.class))
+            .toList();
     }
 
-    public void save(final Message message) throws IOException, ExecutionException, InterruptedException {
+    private Message convertToMessage(final QueryDocumentSnapshot document) {
+        return new Message(UUID.randomUUID(), Long.parseLong(document.getString("timestamp")),
+            document.getString("message"), document.getString("username"), null);
+    }
+
+    public void save(final Message message)
+        throws IOException, ExecutionException, InterruptedException {
         Firestore db = FirestoreClient.getFirestore();
-
-
         final var docRef = db.collection("messages").document(UUID.randomUUID().toString());
-// Add document data  with id "alovelace" using a hashmap
         Map<String, Object> data = new HashMap<>();
         data.put(UUID.randomUUID().toString(), message);
-//asynchronously write data
         ApiFuture<WriteResult> result = docRef.set(data);
         result.get();
-// ...
-// result.get() blocks on response
         System.out.println("Update time : " + result.get().getUpdateTime());
     }
 }
