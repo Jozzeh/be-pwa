@@ -15,6 +15,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
@@ -25,7 +26,6 @@ public class MessageService {
 
     private final FirebaseApp app;
 
-    private final List<Message> messages = new ArrayList<>();
 
     public MessageService(final FirebaseApp app) {
         this.app = app;
@@ -35,28 +35,19 @@ public class MessageService {
         Firestore db = FirestoreClient.getFirestore();
 
         // asynchronously retrieve all users
-        ApiFuture<QuerySnapshot> query = db.collection("users").get();
+        ApiFuture<QuerySnapshot> query = db.collection("messages").get();
 // ...
 // query.get() blocks on response
         QuerySnapshot querySnapshot = query.get();
-        List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
-        for (QueryDocumentSnapshot document : documents) {
-            System.out.println("User: " + document.getId());
-            System.out.println("First: " + document.getString("first"));
-            if (document.contains("middle")) {
-                System.out.println("Middle: " + document.getString("middle"));
-            }
-            System.out.println("Last: " + document.getString("last"));
-            System.out.println("Born: " + document.getLong("born"));
-        }
-        return messages.stream().toList();
+        return querySnapshot.getDocuments().stream().map(document -> new Message(UUID.randomUUID(), Long.parseLong(document.getString("timestamp")), document.getString("message"), document.getString("username"), null)).toList();
+
     }
 
     public void save(final Message message) throws IOException, ExecutionException, InterruptedException {
         Firestore db = FirestoreClient.getFirestore();
 
 
-        final var docRef = db.collection("messages").document("message");
+        final var docRef = db.collection("messages").document(UUID.randomUUID().toString());
 // Add document data  with id "alovelace" using a hashmap
         Map<String, Object> data = new HashMap<>();
         data.put(UUID.randomUUID().toString(), message);
